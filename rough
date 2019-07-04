@@ -1,0 +1,94 @@
+import React from 'react';
+import logo from './logo.svg';
+import programming from './assets/programming.png';
+import './App.css';
+import Navbar from 'react-bootstrap/Navbar';
+import Gist from 'react-gist';
+import axios from 'axios';
+import CategoryListComponent from './components/CategoryListComponent';
+import renderHTML from 'react-render-html';
+import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
+
+var tokens = [];
+class App extends React.Component {
+
+	constructor(props){
+		super(props);
+
+		this.state = {
+			categories: [],
+			post: []
+		};
+	}
+
+	componentWillMount () {
+		const self = this;
+		axios.get("http://74714d2c.ngrok.io/api/post/")
+		.then(res => {
+			self.setState({post: res.data})
+			console.log(self.state.post)
+		})
+		.catch(err => {
+			console.log(err)
+		})
+
+		axios.get("http://74714d2c.ngrok.io/api/category/")
+		.then(res => {
+			self.setState({categories: res.data})
+			console.log(self.state.post)
+		})
+		.catch(err => {
+			console.log(err)
+		})
+	}
+
+	getTokens(content){
+		console.log(content.includes());
+	}
+
+	render(){
+		this.getTokens("Sample content.........**5efefbc40e616cb00009ed389264b755**.........**5efefbc40e616cb00009ed389264b755**")
+		return (
+			<div className="App">
+				<Navbar bg='dark' expand='lg'>
+					<Navbar.Brand>
+						<img
+							alt=""
+							src={logo}
+							width="30"
+							height="30"
+							className="d-inline-block align-top"
+					  	/>
+						<span className="white">Kotlin Blog</span>
+					</Navbar.Brand>
+				</Navbar>
+				<div className="row">
+					<div className="col-md-12" id="scriptDiv">
+						<Gist id="5efefbc40e616cb00009ed389264b755"/>
+					</div>
+				</div>
+				<div className="row">
+					<div className="col-md-2" style={{ background: "yellow" }}/>
+					<div className="col-md-8" style={{ background: "red" }}>
+						{
+							this.state.post.map((item, key) =>
+								<li key={key}>ReactHtmlParser(item.content)</li>
+							)
+						}
+					</div>
+					<div className="col-md-2" style={{ background: "blue" }}/>
+				</div>
+				<br/>
+				<div className="row">
+					<div className="col-md-3">
+						<CategoryListComponent categories = {this.state.categories}/>
+					</div>
+					<div className="col-md-6" style={{ background: "red" }}>List area</div>
+					<div className="col-md-3" style={{ background: "blue" }}>List area</div>
+				</div>
+			</div>
+		);
+	}
+}
+
+export default App;

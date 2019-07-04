@@ -1,5 +1,11 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
 .App {
   text-align: center;
+}
+
+.white{
+	color: white;
 }
 
 .App-logo {
@@ -30,4 +36,9 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+
+.montserrat{
+	font-family: 'Montserrat', sans-serif;
 }

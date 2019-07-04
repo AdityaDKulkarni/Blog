@@ -1,0 +1,13 @@
+.list-item{
+	margin-bottom: 20px;
+}
+
+.active{
+	background-color: #b0bec5;
+}
+
+.list{
+	margin-top: 8px;
+	margin-left: 10px;
+	margin-right: 10px;
+}
